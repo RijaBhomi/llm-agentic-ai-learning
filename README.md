@@ -32,4 +32,4 @@ Explore the implementation folders containing source code, experiments, and dedi
 ---
 
 ## 📖 External Resources
-* **[Useful Links & Papers](resources/useful-links.md)** – A curated collection of fundamental AI papers (e.g., *Attention Is All You Need*) and engineering blogs.
+* **[Useful Links & Papers](resources/useful-links.md)** 
