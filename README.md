@@ -15,6 +15,7 @@ Click on any topic below to view the detailed conceptual breakdown and intuition
 * **[05. From RNNs to Attention](notes/05-rnns-to-attention-evolution.md)** – The evolution from sequential dependencies (LSTMs, GRUs) to parallel processing.
 * **[06. Self-Attention Mechanism](notes/06-self-attention-mechanism.md)** – Deep dive into Queries ($Q$), Keys ($K$), and Values ($V$) vectors.
 * **[07. Transformer Architecture](notes/07-transformer-architecture.md)** – Detailed breakdown of the Encoder-Decoder pipeline, positional encoding, and cross-attention.
+* **[08. Hybrid Search & Re-ranking](notes/08-hybrid-search-and-reranking.md)** – Solving the alphanumeric mismatch problem and fixing the "Lost in the Middle" context effect using Cross-Encoders.
 
 ---
 
