@@ -16,7 +16,7 @@ Click on any topic below to view the detailed conceptual breakdown and intuition
 * **[06. Self-Attention Mechanism](notes/06-self-attention-mechanism.md)** – Deep dive into Queries ($Q$), Keys ($K$), and Values ($V$) vectors.
 * **[07. Transformer Architecture](notes/07-transformer-architecture.md)** – Detailed breakdown of the Encoder-Decoder pipeline, positional encoding, and cross-attention.
 * **[08. Hybrid Search & Re-ranking](notes/08-hybrid-search-and-reranking.md)** – Solving the alphanumeric mismatch problem and fixing the "Lost in the Middle" context effect using Cross-Encoders.
-
+* **[09. RAG Lifecycle: Ingestion vs. Inference](notes/09-rag-lifecycle-ingestion-vs-inference.md)** – Breaking down the batch preprocessing pipeline versus the real-time execution loop.
 ---
 
 ## 🛠️ Hands-On Projects
