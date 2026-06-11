@@ -26,6 +26,7 @@ Explore the implementation folders containing source code, experiments, and dedi
 ### 🤖 Core Projects
 * **[PDF Chatbot](projects/pdf-chatbot/)** – A complete implementation utilizing document chunking, FAISS vector storage, and an LLM generation loop.
 * **[Research Assistant AI](projects/research-assistant/)** – Building localized memory states and advanced tool-calling capabilities.
+* **[Travel Planner](projects/travel-planner/)** – An Agentic tool-calling system built with `gemini-2.5-flash` that fetches live global weather data and gives clothing/packing suggestions and calculate cross-currency metrics for budget planning.
 
 ### 🧪 Isolated Experiments
 * **[Code Sandbox & Experiments](experiments/)** – Micro-scripts including `mini_faiss.py` and semantic search verification playgrounds.
