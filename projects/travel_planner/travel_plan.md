@@ -8,15 +8,21 @@ This command-line intelligent travel planner is built using the new `google-gena
 
 ## System Architecture
 
-[ User Casual Request ]
+[ Multi-Turn User Dialogue Stream ]
+                   │
+                   ▼
+┌───────────────────────────────────────────┐
+│       Stateful Chat Session Context       │ <─── Keeps track of locations,
+│  (Persistent Memory & Token Accounting)   │      budgets, & previous details
+└───────────────────────────────────────────┘
 │
+▼ Passes History Matrix
+┌───────────────────────────────────────────┐
+│               Gemini Model                │ ─── Reads Docstrings ───> [ Tool Menu ]
+└───────────────────────────────────────────┘
+│
+│ (Interceptors Intent & Requests Run)
 ▼
-┌─────────────────┐      Reads Docstrings      ┌──────────────────────────────┐
-│  Gemini Model   │ ────────────────────────>  │   Available Python Tools     │
-└─────────────────┘                            └──────────────────────────────┘
-│                                                    │
-│ (Intercepts Intent & Halts)                        │ Matches Schema
-▼                                                    ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                         Local Python Execution Loop                         │
 │  1. wttr.in (Live Weather API)                                              │
@@ -24,26 +30,29 @@ This command-line intelligent travel planner is built using the new `google-gena
 │  3. budget_breakdown_calculator (Financial Allocation Formula)               │
 └─────────────────────────────────────────────────────────────────────────────┘
 │
-▼ (Submits JSON Data Payload)
-┌─────────────────┐
-│  Gemini Model   │ ───> Synthesizes Final Context ───> [ Beautiful Itinerary ]
-└─────────────────┘
+▼ (Submits JSON Data Payload Back to Session)
+┌───────────────────────────────────────────┐
+│               Gemini Model                │ ─── Synthesizes Data ───> [ Contextual Reply ]
+└───────────────────────────────────────────┘
 
 
-The agent acts as a centralized **Decision Engine**. It does not execute local machine code directly; rather, it parses the user's natural language, selects the appropriate tool from its configuration menu, and requests the local runtime to execute it.
+The engine acts as a centralized **Decision Engine**. It parses natural language across multiple messages, updates its memory state, selects the appropriate tool from its configuration layout, and instructs the local runtime environment to execute it when sufficient parameters are met.
 
 ---
 
-##  Key Engineering Concepts Mastered
+## 🚀 Key Engineering Concepts Mastered
 
 ### 1. Function Calling & Tool Schemas
-Native Python functions are passed directly into the Gemini configuration array. The model scans function signatures, variable type hints (`amount: float`), and docstring descriptions to map natural language intents to background code.
+Native Python functions are passed directly into the Gemini configuration array. The model scans function signatures, variable type hints (`amount: float`), and docstring descriptions to map natural language intents directly to back-end parameters.
 
-### 2. Live API Integration & Fallbacks
-* **Real-Time Weather:** Intersects location strings and hooks into `wttr.in` to retrieve live temperatures and conditions, passing them to a rule-based algorithm that determines packing recommendations.
+### 2. Multi-Turn Stateful Memory (`client.chats`)
+Instead of managing manual conversation history arrays, the pipeline utilizes persistent chat state managers. The agent retains context across multiple turns, enabling users to split their specifications (e.g., providing a destination in message one, and a budget in message two) while maintaining seamless context tracking.
+
+### 3. Live API Integration & Cross-Currency Math
+* **Real-Time Weather:** Intersects location strings and hooks into `wttr.in` to retrieve live temperatures and conditions globally, passing them to a rule-based algorithm that determines packing recommendations.
 * **Global Cross-Currency Conversion:** Implements a cross-currency mathematical formula to convert budgets starting from **Nepalese Rupees (NPR)** into any foreign currency code (like `JPY` or `EUR`) using free, live USD-base financial tracking tiers.
 
-### 3. Dynamic Multi-Step Routing
-The execution loop supports parallel and sequential function resolution. The model can request multiple tool executions simultaneously, absorb the generated JSON data packets, and pipe those results into subsequent calculations (such as the budget allocation matrix).
+### 4. Dynamic Token Guardrails & Trimming
+Monitors the chat history footprint dynamically using native token counting utilities (`client.models.count_tokens`). Includes a custom sliding-window guardrail that safely auto-trims ancient user/model message exchanges when memory sizes cross safety thresholds, keeping the agent fast and stable.
 
 ---
